@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: process.env.NEXT_POSTAPI_BASE_URL,
-  timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
+const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_POSTAPI_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
-export default instance;
+export default axiosInstance;
