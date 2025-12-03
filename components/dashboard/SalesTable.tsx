@@ -4,9 +4,9 @@ import { Sale } from '@/lib/types';
 
 // defining the props for the main sales table component
 interface SalesTableProps {
-  data: Sale[];                        
-  sortBy: 'date' | 'price';            
-  sortOrder: 'asc' | 'desc';           
+  data: Sale[];
+  sortBy: 'date' | 'price';
+  sortOrder: 'asc' | 'desc';
   onSort: (field: 'date' | 'price') => void; // function to call when user clicks a column to sort which returns nothing
 }
 
@@ -19,14 +19,14 @@ interface SortIconProps {
 
 // small component to show sorting arrows on a date and price column
 function SortIcon({ field, sortBy, sortOrder }: SortIconProps) {
-// sortBy → comes from the parent component. it tells which column is currently sorted ('date' or 'price').
-// field → comes from the SortIcon component itself. it tells which column this arrow belongs to ('date' or 'price').
-// sortBy === field → compares them:
-// if sortBy is 'date' and field is 'date', it's true → this column is active, show blue arrow.
-// if sortBy is 'price' and field is 'date', it's false → this column is not active, show neutral gray icon.
-// const isActive = ... → just saves the result (true or false) in a variable so we can use it later to decide which arrow to show.
- 
-const isActive = sortBy === field;   
+  // sortBy → comes from the parent component. it tells which column is currently sorted ('date' or 'price').
+  // field → comes from the SortIcon component itself. it tells which column this arrow belongs to ('date' or 'price').
+  // sortBy === field → compares them:
+  // if sortBy is 'date' and field is 'date', it's true → this column is active, show blue arrow.
+  // if sortBy is 'price' and field is 'date', it's false → this column is not active, show neutral gray icon.
+  // const isActive = ... → just saves the result (true or false) in a variable so we can use it later to decide which arrow to show.
+
+  const isActive = sortBy === field;
 
   // if this column is not being sorted, show neutral gray icon
   if (!isActive) {
@@ -61,26 +61,27 @@ export default function SalesTable({ data, sortBy, sortOrder, onSort }: SalesTab
       {/* container for horizontal scroll on small screens */}
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="border-b-2" style={{ backgroundColor: '#a7cc3a', borderColor: '#f490b5' }}>
+          <thead className="border-b-2 bg-[#f5f5f5]" >
             <tr>
               {/* date column header with clickable sorting */}
-              <th className="px-6 py-3 text-left">
+              <th className="px-6 py-3 text-left text-black">
                 <button
-                  onClick={() => onSort('date')} // calls parent to sort by date
-                  className="flex items-center text-sm font-semibold text-black transition-colors"
+                  onClick={() => onSort('date')}
+                  className="flex items-center gap-1 text-lg font-semibold text-black transition-colors"
                   onMouseEnter={(e) => e.currentTarget.style.color = '#f490b5'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'black'}
                 >
                   Date
-                  <SortIcon field="date" sortBy={sortBy} sortOrder={sortOrder} /> {/* show sort arrow */}
+                  <SortIcon field="date" sortBy={sortBy} sortOrder={sortOrder} />
                 </button>
+
               </th>
 
               {/* price column header with clickable sorting */}
               <th className="px-6 py-3 text-left">
                 <button
                   onClick={() => onSort('price')} // calls parent to sort by price
-                  className="flex items-center text-sm font-semibold text-black transition-colors"
+                  className="flex items-center text-lg font-semibold text-black transition-colors"
                   onMouseEnter={(e) => e.currentTarget.style.color = '#f490b5'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'black'}
                 >
@@ -90,12 +91,12 @@ export default function SalesTable({ data, sortBy, sortOrder, onSort }: SalesTab
               </th>
 
               {/* customer email column header */}
-              <th className="px-6 py-3 text-left text-sm font-semibold text-black">
+              <th className="px-6 py-3 text-left text-lg font-semibold text-black">
                 Customer Email
               </th>
 
               {/* customer phone column header */}
-              <th className="px-6 py-3 text-left text-sm font-semibold text-black">
+              <th className="px-6 py-3 text-left text-lg font-semibold text-black">
                 Phone Number
               </th>
             </tr>
@@ -117,18 +118,18 @@ export default function SalesTable({ data, sortBy, sortOrder, onSort }: SalesTab
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1a1a1a'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'black'}
                 >
-                  <td className="px-6 py-4 text-sm" style={{ color: '#a7cc3a' }}>
+                  <td className="px-6 py-4 text-lg" style={{ color: '#a7cc3a' }}>
                     {/* format date and time nicely */}
                     {new Date(sale.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}{' '}
                     {new Date(sale.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium" style={{ color: '#f490b5' }}>
+                  <td className="px-6 py-4 text-lg font-medium" style={{ color: '#f490b5' }}>
                     ${sale.price.toLocaleString()} {/* format price with commas */}
                   </td>
-                  <td className="px-6 py-4 text-sm text-white">
+                  <td className="px-6 py-4 text-lg text-white">
                     {sale.customerEmail}
                   </td>
-                  <td className="px-6 py-4 text-sm text-white">
+                  <td className="px-6 py-4 text-lg text-white">
                     {sale.customerPhone}
                   </td>
                 </tr>

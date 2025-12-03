@@ -256,22 +256,22 @@ export default function DashboardPage() {
 
             {/* it displays Total number of records in current view  and date range*/}
 
-            <div className="bg-black p-6 rounded-lg mb-6 border-2" style={{ borderColor: '#a7cc3a' }}>
+            <div className="bg-[#8a55a6]/70 p-6 rounded-lg mb-6 border-2 shadow-[inset_0_0_15px_rgba(0,0,0,0.5)]" >
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 
                 {/* Record count display */}
                 <div className="flex items-center gap-3">
                   <div className="text-4xl">📊</div>
                   <div>
-                    <p className="text-sm" style={{ color: '#f490b5' }}>Total Records</p>
-                    <p className="text-3xl font-bold" style={{ color: '#a7cc3a' }}>
+                    <p className="text-lg font-medium font-sans text-[#d2ff31]" >Total Records</p>
+                    <p className="text-3xl font-bold text-[#d2ff31]" >
                       {salesData.results.Sales.length}
                     </p>
                   </div>
                 </div>
 
                 {/* Date range badge */}
-                <div className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg">
+                <div className="text-md font-mono text-[#d2ff31] font-medium  px-4 py-2 rounded-lg">
                   Showing results for {filters.startDate} to {filters.endDate}
                 </div>
               </div>
