@@ -6,14 +6,15 @@ import { SalesResponse, SalesFilters } from '@/lib/types';
 
 // Function to fetch sales data with filters
 async function getSales(filters: SalesFilters): Promise<SalesResponse> {
-  // getting token from localStorage for authorization
-  const token = localStorage.getItem('authToken') ;
+  // Only access localStorage on client
+  const token =
+    typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
   if (!token) {
     throw new Error('No auth token found');
   }
 
-  // create params object with all the filter values to send with api and get desire data's
+  // Build API parameters from filters
   const params = {
     startDate: filters.startDate,
     endDate: filters.endDate,
@@ -26,8 +27,8 @@ async function getSales(filters: SalesFilters): Promise<SalesResponse> {
     before: filters.before || '',
   };
 
-  console.log(' API Call Parameters:', params);
-  // used try catch to hanlde error
+  console.log('API Call Parameters:', params);
+
   try {
     const res = await axios.get<SalesResponse>(
       'https://autobizz-425913.uc.r.appspot.com/sales',
@@ -39,32 +40,35 @@ async function getSales(filters: SalesFilters): Promise<SalesResponse> {
       }
     );
 
-    console.log('sales res', res.data);
+    console.log('Sales Response:', res.data);
     return res.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error(' sales Err:', error.message);
-      console.error(' error res', error.response?.data);
+      console.error('Sales Axios Error:', error.message);
+      console.error('Response Data:', error.response?.data);
     } else {
-      console.error('cant get the sales data for unknown error ', error);
+      console.error('Unknown Sales Error:', error);
     }
     throw error;
   }
 }
 
-//useSales hook to manage sales data, salesFilters is imported from types.ts to define types of filter
+// Hook to fetch sales data with React Query
 export function useSales(filters: SalesFilters) {
-  console.log(' useSales called with filters:', filters);
+  console.log('useSales called with filters:', filters);
+
+  const isClient = typeof window !== 'undefined'; // check if running on browser
+  const hasToken = isClient && !!localStorage.getItem('authToken');
 
   return useQuery({
-    queryKey: ['sales', filters], // this will make the query re-run when filters change
-    queryFn: () => getSales(filters), // this is the function that actually fetches the sales data
+    queryKey: ['sales', filters], // re-fetch when filters change
+    queryFn: () => getSales(filters),
     enabled:
-      !!localStorage.getItem('authToken') && // only fetch if user is logged in
-      !!filters.startDate && // only fetch if start date is set. i have used default date to show some random sales on table otherwise it will be empty.
-      !!filters.endDate, 
-    staleTime: 30000, 
-    refetchOnWindowFocus: false, // don't automatically refetch when user switches back to tab
+      isClient && // only run on client
+      hasToken && // only run if token exists
+      !!filters.startDate &&
+      !!filters.endDate,
+    staleTime: 30000,
+    refetchOnWindowFocus: false, // don't auto refetch on tab focus
   });
-
 }

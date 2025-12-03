@@ -8,7 +8,8 @@ import { SalesFilters } from '@/lib/types';
 import SalesTable from '@/components/dashboard/SalesTable';
 import Pagination from '@/components/dashboard/Pagination';
 import AllFilters from '@/components/dashboard/AllFilters';
-import { IterationCw, TriangleAlert } from 'lucide-react';
+import {  TriangleAlert } from 'lucide-react';
+import SalesChart from '@/components/dashboard/SalesChart';
 
 
 /**
@@ -193,10 +194,14 @@ export default function DashboardPage() {
   // --------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen pt-20" style={{ backgroundColor: '#0a0a0a' }}>
+    <div className="min-h-screen pt-20 bg-black dark:bg-black" >
       <div className="container mx-auto p-6 max-w-7xl">
 
-        
+        {
+          salesData&&<>
+          <SalesChart data={salesData.results.Sales}></SalesChart>
+          </>
+        }
        
         {/* AllFilters component renders date range, price, email, and phone filters. */}
        
@@ -236,7 +241,7 @@ export default function DashboardPage() {
           </div>
         )}
 
-+
+
 
        
         {salesData && (
