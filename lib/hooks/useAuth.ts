@@ -23,7 +23,7 @@ async function getAuthorize(): Promise<string> {
     console.log('Auth Response:', response.data);
     
     // // Store token in localStorage
-    // if (typeof window !== 'undefined') {
+
       localStorage.setItem('authToken', response.data.token);
     
     

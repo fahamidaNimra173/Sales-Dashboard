@@ -29,3 +29,15 @@ export interface SalesResponse {
     after: string;
   };
 }
+// declare Types for filters
+export interface SalesFilters {
+  startDate: string;
+  endDate: string;
+  priceMin: string;
+  email: string;
+  phone: string;
+  sortBy: 'date' | 'price';
+  sortOrder: 'asc' | 'desc';
+  after: string;
+  before: string;
+}
