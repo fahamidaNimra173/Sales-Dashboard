@@ -80,19 +80,19 @@ export default function SalesChart({ data }: SalesChartProps) {
   
   if (!data || data.length === 0) {
     return (
-      <div className="bg-black p-8 rounded-lg border-2 text-center" style={{ borderColor: '#f490b5' }}>
+      <div className="bg-black p-8 rounded-lg border-2 text-center border-[#f490b5]" >
         <p className="text-white text-lg">No sales data available to display</p>
       </div>
     );
   }
   
   return (
-    <div className="bg-black md:p-6 p-2 rounded-lg border-2 mb-6 border-[#a7cc3a]" >
+    <div className="md:p-6 p-2 rounded-lg bg-[#8a55a6] border-2 mb-6 border-[#8a55a6]" >
       <div className="mb-4">
-        <h2 className="text-2xl font-bold" style={{ color: '#a7cc3a' }}>
+        <h2 className="text-3xl font-mono lg:text-5xl font-bold text-[#dffa12]" >
            Sales Trend
         </h2>
-        <p className="text-sm mt-1" style={{ color: '#f490b5' }}>
+        <p className="text-md mt-1 text-[#ffffff]" >
           Total sales amount by day
         </p>
       </div>
@@ -125,10 +125,10 @@ export default function SalesChart({ data }: SalesChartProps) {
             <Line 
               type="monotone" 
               dataKey="totalSales" 
-              stroke="#a7cc3a" 
+              stroke="#f7dc61" 
               strokeWidth={3}
-              dot={{ fill: '#a7cc3a', r: 4 }}
-              activeDot={{ r: 6, fill: '#f490b5' }}
+              dot={{ fill: '#263351', r: 4 }}
+              activeDot={{ r: 6, fill: '#263351' }}
               name="Total Sales ($)"
             />
           </LineChart>

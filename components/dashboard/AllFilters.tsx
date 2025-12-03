@@ -63,7 +63,7 @@ export default function AllFilters({ onFiltersChange }: FilterPanel) {
   };
 
   return (
-    <div className="bg-black p-6 rounded-lg shadow-md mb-6 border-2" style={{ borderColor: '#a7cc3a' }}>
+    <div className="bg-black p-6 rounded-lg shadow-md mb-6 border-2 border-[#8a55a6]" >
       
       <div 
         className="flex justify-between items-center cursor-pointer md:cursor-default"
