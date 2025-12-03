@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+'use client'
+
+// import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '../components/dashboard/NavBar'
@@ -15,16 +17,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Dashboard ",
-  description: "Assesment task from autobiz",
-};
+// export const metadata: Metadata = {
+//   title: "Dashboard ",
+//   description: "Assesment task from autobiz",
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // queryClinet is used for tanstack setup.in this i have used usestate to store the data at once while mounting  to avoid re render data on evey reload  
   const [queryClient] = useState(() => new QueryClient)
   return (
     <html lang="en">
