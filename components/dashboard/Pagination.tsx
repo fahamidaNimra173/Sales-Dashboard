@@ -25,8 +25,8 @@ export default function Pagination({
             <button
                 onClick={() => onPageChange('prev', before)}
                 disabled={currentPage === 1|| isLastPage}
-                className="flex items-center gap-2 px-4 py-2 text-black rounded-md disabled:opacity-50"
-                style={{ backgroundColor: '#a7cc3a' }}
+                className="flex items-center gap-2 px-4 py-2 bg-[#a7cc3a] cursor-pointer text-black rounded-md disabled:opacity-50"
+
             >
                 Previous
             </button>
@@ -35,8 +35,8 @@ export default function Pagination({
             <button
                 onClick={() => onPageChange('next', after)}
                 disabled={!after || isLastPage}
-                className="flex items-center gap-2 px-4 py-2 text-black rounded-md disabled:opacity-50"
-                style={{ backgroundColor: '#a7cc3a' }}
+                className="flex items-center gap-2 px-4 py-2 text-black bg-[#a7cc3a] cursor-pointer rounded-md disabled:opacity-50"
+
             >
                 Next
             </button>
