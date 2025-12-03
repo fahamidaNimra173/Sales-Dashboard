@@ -1,16 +1,61 @@
 'use client'
-import SalesTable from "@/components/dashboard/SalesTable";
+
 // import SideBarDashboard from "@/components/dashboard/sideBar";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { useSales } from "@/lib/hooks/useSales";
+import { SalesFilters } from "@/lib/types";
+import { useState } from "react";
 
 
 export default function Home() {
   //  getting authorization token by using useAuth hook
   const { data: token, isLoading: authLoading, error: authError } = useAuth();
-
+  const [filters, setFilters] = useState<SalesFilters>({
+    startDate: '2025-01-01',
+    endDate: '2025-01-31',
+    priceMin: '',
+    email: '',
+    phone: '',
+    sortBy: 'date',
+    sortOrder: 'asc',
+    after: '',
+    before: '',
+  });
+  
   //  getting sales data by using useAuth hook 
-  const { data: salesData, isLoading: salesLoading, error: salesError } = useSales();
+  const { data: salesData, isLoading: salesLoading, error: salesError } = useSales(filters);
+  const updateFilter = (key: keyof SalesFilters, value: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      // Reset pagination when other filters change
+      ...(key !== 'after' && key !== 'before' ? { after: '', before: '' } : {}),
+    }));
+  };
+
+  // Function to handle sorting
+  const handleSort = (field: 'date' | 'price') => {
+    const newOrder =
+      filters.sortBy === field && filters.sortOrder === 'asc'
+        ? 'desc'
+        : 'asc';
+
+    setFilters((prev) => ({
+      ...prev,
+      sortBy: field,
+      sortOrder: newOrder,
+      after: '', // Reset pagination on sort
+      before: '',
+    }));
+  };
+  // Function to handle pagination
+  const handlePageChange = (direction: 'next' | 'prev', token: string) => {
+    if (direction === 'next') {
+      setFilters((prev) => ({ ...prev, after: token, before: '' }));
+    } else {
+      setFilters((prev) => ({ ...prev, before: token, after: '' }));
+    }
+  };
 
   // handeling loading and error of authorization token
   if (authLoading) {
@@ -29,37 +74,40 @@ export default function Home() {
     );
   }
   return (
-    <div className="flex  min-h-screen items-center justify-center  font-sans bg-black">
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6">Sales Dashboard</h1>
+    <div className="container mx-auto p-6 max-w-7xl">
+      <h1 className="text-3xl font-bold mb-6">Sales Dashboard</h1>
 
-        {/* Loading State */}
-        {salesLoading && (
-          <div className="text-center py-8">
-            <p className="text-gray-600">Loading sales data...</p>
-          </div>
-        )}
+      {/* Filter Panel */}
+     
+      {/* Loading State */}
+      {salesLoading && (
+        <div className="text-center py-8">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          <p className="text-gray-600 mt-2">Loading sales data...</p>
+        </div>
+      )}
 
-        {/* Error State */}
-        {salesError && (
-          <div className="text-center py-8 text-red-600">
-            <p>Error loading sales: {salesError.message}</p>
-          </div>
-        )}
+      {/* Error State */}
+      {salesError && (
+        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-4">
+          <p className="font-semibold">Error loading sales data</p>
+          <p className="text-sm">{salesError.message}</p>
+        </div>
+      )}
 
-        {/* Table */}
-        {salesData && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">
-              Sales Details ({salesData.results.Sales.length} items)
-            </h2>
-            <SalesTable data={salesData.results.Sales} />
+      {/* Sales Table */}
+      {salesData && (
+        <>
+          <div className="mb-4 text-sm text-gray-600">
+            Showing {salesData.results.Sales.length} sales
           </div>
-        )}
-      </div>
-      {/* <div className="">
-        <SideBarDashboard></SideBarDashboard>
-      </div> */}
+
+         
+
+          {/* Pagination */}
+    
+        </>
+      )}
     </div>
   );
 }
