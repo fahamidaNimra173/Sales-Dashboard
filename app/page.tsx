@@ -131,7 +131,7 @@ export default function DashboardPage() {
   
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#0a0a0a' }}>
+      <div className="flex items-center justify-center min-h-screen bg-[#feffff] dark:bg-[#feffff]" >
         <div className="text-center">
           {/* Dual-ring loading spinner */}
           <div className="relative w-24 h-24 mx-auto mb-6">
@@ -151,8 +151,8 @@ export default function DashboardPage() {
               }}
             ></div>
           </div>
-          <h2 className="text-2xl font-bold" style={{ color: '#a7cc3a' }}>Authorizing...</h2>
-          <p className="mt-2" style={{ color: '#f490b5' }}>Getting access token</p>
+          <h2 className="text-2xl font-bold text-[#8a55a6]" >Authorizing...</h2>
+          <p className="mt-2 text-[#8a55a6]" >Getting access token</p>
         </div>
       </div>
     );
@@ -161,8 +161,8 @@ export default function DashboardPage() {
  // showing error if authentication fails
   if (authError) {
     return (
-      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="text-center bg-black p-8 rounded-lg border-2" style={{ borderColor: '#f490b5' }}>
+      <div className="flex items-center justify-center min-h-screen bg-[#feffff]" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="text-center bg-[#feffff] p-8 rounded-lg border-2 border-[#8a55a6]" >
           {/* Warning icon */}
           <div className="text-6xl text-yellow-400 mb-4">
             <TriangleAlert />
@@ -194,7 +194,7 @@ export default function DashboardPage() {
   // --------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen pt-20 bg-black dark:bg-black" >
+    <div className="min-h-screen pt-20 bg-[#feffff] dark:bg-[#feffff]" >
       <div className="container mx-auto p-6 max-w-7xl">
 
         {

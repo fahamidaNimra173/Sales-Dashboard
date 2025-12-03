@@ -25,7 +25,8 @@ function SortIcon({ field, sortBy, sortOrder }: SortIconProps) {
 // if sortBy is 'date' and field is 'date', it's true → this column is active, show blue arrow.
 // if sortBy is 'price' and field is 'date', it's false → this column is not active, show neutral gray icon.
 // const isActive = ... → just saves the result (true or false) in a variable so we can use it later to decide which arrow to show.
-  const isActive = sortBy === field;   
+ 
+const isActive = sortBy === field;   
 
   // if this column is not being sorted, show neutral gray icon
   if (!isActive) {
