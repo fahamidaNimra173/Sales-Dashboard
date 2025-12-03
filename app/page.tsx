@@ -194,11 +194,16 @@ export default function DashboardPage() {
   // --------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen pt-20 bg-[#080909] dark:bg-[#0f1010]" >
-      <div className=" p-6 lg:px-20 ">
-        <div className='flex flex-col items-center py-5 pb-10 justify-center'>
-          <h1 className="text-center  font-bold text-3xl  md:text-5xl lg:text-6xl bg-gradient-to-r from-[#dffa12] via-[#dffa12] to-[#8a55a6] bg-clip-text text-transparent">
-            Welcome to Your Sales <br /><span className='uppercase'>Dashboard</span> 
+    <div className="min-h-screen overflow-hidden relative z-0 pt-20 bg-[#080909] dark:bg-[#0f1010]">
+
+      {/* Purple glow background */}
+      <div className="absolute w-96 h-96 lg:w-[500px] lg:h-[700px] rounded-full top-0 -left-10 bg-[#8a55a6]/60 -z-10 blur-3xl"></div>
+
+      <div className="p-6 lg:px-20 relative z-10">
+        <div className="flex flex-col items-center py-5 pb-10 justify-center">
+          <h1 className="text-center font-bold text-3xl md:text-5xl lg:text-6xl bg-gradient-to-r from-[#dffa12] via-[#dffa12] to-[#8a55a6] bg-clip-text text-transparent">
+            Welcome to Your Sales <br />
+            <span className="uppercase">Dashboard</span>
           </h1>
 
           <p className='text-white text-center my-3 font-medium text-[17px]'>Monitor, analyze, and manage your sales data all in one place. Gain insights, track trends, and make informed decisions with real-time updates and detailed visualizations.</p>
